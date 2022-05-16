@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Events from '../components/Events';
+import Repo from '../components/Repo';
 import Tabs from '../components/Tabs';
+import UsersContainer from '../components/UsersContainer';
 
 const UserInfo = () => {
     const [user, setUser] = useState([]);
     const [type, setType] = useState('repos');
+    const [info, setInfo] = useState([]);
     const { pathname } = useLocation();
     const navigate = useNavigate();
     let BaseURL = 'https://api.github.com/users';
@@ -15,8 +19,15 @@ const UserInfo = () => {
         setUser(() => [data]);
     }
 
+    async function getUrls() {
+        const res = await fetch(BaseURL + pathname + `/${type}`);
+        const data = await res.json();
+        setInfo(data);
+    }
+
     useEffect(() => {
         getUserInfo();
+        getUrls();
     }, [pathname, type]);
     return (
         <div className='py-5'>
@@ -72,9 +83,9 @@ const UserInfo = () => {
                             <a
                                 href={usinfo?.html_url}
                                 target='_blank'
-                                className='text-gray-200 bg-green-700 my-3 font-semibold py-1 px-4 tracking-wide rounded-md'
+                                className='text-gray-200 mt-5 bg-green-700 my-3 font-semibold py-1 px-4 tracking-wide rounded-md'
                             >
-                                GO TA ACCOUNT
+                                GO TO ACCOUNT
                             </a>
                         </div>
                     </div>
@@ -82,6 +93,17 @@ const UserInfo = () => {
             <div className='flex border-b pb-4 gap-6 mt-[10%] mb-6 justify-center md:text-xl'>
                 <Tabs type={type} setType={setType} />
             </div>
+            {type === 'repos' && <div>{info && <Repo users={info} />}</div>}
+            {type === 'received_events' && (
+                <div>
+                    <Events />
+                </div>
+            )}
+            {type === 'followers' && (
+                <div>
+                    <UsersContainer users={info} />
+                </div>
+            )}
         </div>
     );
 };

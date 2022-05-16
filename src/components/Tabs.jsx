@@ -10,8 +10,8 @@ const Tabs = ({ type, setType }) => {
                 REPOSITORIES
             </button>
             <button
-                className={`${type === 'received-events' && 'text-green-400'}`}
-                onClick={() => setType('received-events')}
+                className={`${type === 'received_events' && 'text-green-400'}`}
+                onClick={() => setType('received_events')}
             >
                 ACTIVITY
             </button>
