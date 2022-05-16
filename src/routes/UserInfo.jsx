@@ -93,10 +93,14 @@ const UserInfo = () => {
             <div className='flex border-b pb-4 gap-6 mt-[10%] mb-6 justify-center md:text-xl'>
                 <Tabs type={type} setType={setType} />
             </div>
-            {type === 'repos' && <div>{info && <Repo users={info} />}</div>}
+            {type === 'repos' && (
+                <div className='grid md:grid-cols-2 grid-cols-1 gap-7 w-10/12 mx-auto'>
+                    {info && <Repo repos={info} />}
+                </div>
+            )}
             {type === 'received_events' && (
-                <div>
-                    <Events />
+                <div className='grid md:grid-cols-2 grid-cols-1 gap-7 w-10/12 mx-auto'>
+                    {info && <Events events={info} />}
                 </div>
             )}
             {type === 'followers' && (
