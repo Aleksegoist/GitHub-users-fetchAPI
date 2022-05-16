@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const UsersContainer = ({ users }) => {
     return (
@@ -20,9 +21,11 @@ const UsersContainer = ({ users }) => {
                                 <h1 className='text-xs text-green-700'>
                                     {user?.name}
                                 </h1>
-                                <span className='text-gray-200 bg-green-700 my-3 font-semibold block py-1 px-4 tracking-wide rounded-md'>
-                                    SHOW
-                                </span>
+                                <Link to={`/${user?.login}`}>
+                                    <span className='text-gray-200 bg-green-700 my-3 font-semibold block py-1 px-4 tracking-wide rounded-md'>
+                                        SHOW
+                                    </span>
+                                </Link>
                             </div>
                         )
                 )}
