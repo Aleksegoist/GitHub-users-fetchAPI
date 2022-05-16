@@ -1,8 +1,6 @@
-import './App.css';
-
 function App() {
     return (
-        <div className='App'>
+        <div className='min-h-screen bg-slate-900'>
             <h1>Hello World!</h1>
         </div>
     );
